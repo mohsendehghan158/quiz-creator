@@ -61,11 +61,11 @@ Route::group(['namespace'=>'Question','middleware' => ['auth','is_admin']],funct
 
 
 Route::namespace('Front')->group(function(){
-    Route::get('/login','Usercontroller@login')->name('login');
-    Route::post('/login','Usercontroller@doLogin')->name('user-doLogin');
-    Route::get('/register','Usercontroller@register')->name('user-register');
-    Route::post('/register','Usercontroller@doRegister');
-    Route::get('/register/success','Usercontroller@registerSuccess')->name('user-register-success');
+    Route::get('/login','UserController@login')->name('login');
+    Route::post('/login','UserController@doLogin')->name('user-doLogin');
+    Route::get('/register','UserController@register')->name('user-register');
+    Route::post('/register','UserController@doRegister');
+    Route::get('/register/success','UserController@registerSuccess')->name('user-register-success');
     Route::get('/logout','UserController@logout')->name('logout');
 });
 Route::group(['namespace' => 'Front','middleware'=>'auth'],function (){
@@ -73,6 +73,6 @@ Route::group(['namespace' => 'Front','middleware'=>'auth'],function (){
     Route::post('/quizzes','QuizController@selectQuiz');
     Route::get('/quiz/{quiz_id}','QuizController@doQuiz')->name('do-quiz');
     Route::post('/quiz/result','QuizController@result')->name('quiz-result');
-    Route::get('/edit-user','Usercontroller@edit')->name('edit-user');
-    Route::post('/edit-user','Usercontroller@doEdit');
+    Route::get('/edit-user','UserController@edit')->name('edit-user');
+    Route::post('/edit-user','UserController@doEdit');
 });
