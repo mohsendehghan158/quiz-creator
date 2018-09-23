@@ -1,0 +1,44 @@
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/vazir/Farsi-Digits/Vazir.eot');
+    src: url('../fonts/vazir/Farsi-Digits/Vazir.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/vazir/Farsi-Digits/Vazir.woff') format('woff'),
+    url('../fonts/vazir/Farsi-Digits/Vazir.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/vazir/Farsi-Digits/Vazir-Bold.eot');
+    src: url('../fonts/vazir/Farsi-Digits/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/vazir/Farsi-Digits/Vazir-Bold.woff') format('woff'),
+    url('../fonts/vazir/Farsi-Digits/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/vazir/Farsi-Digits/Vazir-Light.eot');
+    src: url('../fonts/vazir/Farsi-Digits/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/vazir/Farsi-Digits/Vazir-Light.woff') format('woff'),
+    url('../fonts/vazir/Farsi-Digits/Vazir-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+body{
+    font-family: Vazir;
+    height: 100%;
+
+}
+html{
+    height:100%;
+}
+.full-height{
+    height: 100%;
+}
+.full-width{
+    width:100%;
+}
+.list-group{
+    margin-bottom:10px;
+}
