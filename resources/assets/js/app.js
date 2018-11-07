@@ -7,6 +7,17 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+// adding delete mehtods to http get requests
+$('.remove-button').on('click',function (event) {
+    event.preventDefault();
+    var $this = $(this);
+    var url = $this.attr('href');
+    axios.delete(url).then(function (response) {
+        $this.parent().parent().fadeOut();
+    })
+});
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

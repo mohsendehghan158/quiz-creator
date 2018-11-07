@@ -13,7 +13,7 @@
                     دسته بندی آزمون با موفقیت ویرایش گردید
                 </div>
             @endif
-            <form method="post" style="margin-top: 20px" action="{{route('do-edit-quiz-category')}}">
+            <form method="post" style="margin-top: 20px" action="{{route('quiz-edit-category')}}">
                 {{csrf_field()}}
                 <input type="hidden" name="category_id" value="{{$quiz_category->quiz_category_id}}">
                 <div class="form-group">

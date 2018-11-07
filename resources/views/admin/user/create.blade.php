@@ -20,7 +20,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="post">
+            <form method="post" action="{{route('admin-user-store')}}">
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="name">نام و نام خانوادگی</label>

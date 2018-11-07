@@ -25,7 +25,7 @@
                     آزمون با موفقیت ویرایش گردید
                 </div>
             @endif
-            <form method="post" action="{{route('do-edit-quiz')}}">
+            <form method="post" action="{{route('quiz-edit')}}">
                 {{csrf_field()}}
                 <input type="hidden" name="quiz_id" value="{{$quiz->quiz_id}}">
                 <div class="form-group">

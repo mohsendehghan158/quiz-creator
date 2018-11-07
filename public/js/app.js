@@ -13895,6 +13895,15 @@ module.exports = __webpack_require__(43);
 __webpack_require__(13);
 
 window.Vue = __webpack_require__(36);
+// adding delete mehtods to http get requests
+$('.remove-button').on('click', function (event) {
+    event.preventDefault();
+    var $this = $(this);
+    var url = $this.attr('href');
+    axios.delete(url).then(function (response) {
+        $this.parent().parent().fadeOut();
+    });
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -13944,7 +13953,7 @@ window.Vue = __webpack_require__(36);
 Vue.component('example-component', __webpack_require__(39));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app'
 });
 
 /***/ }),

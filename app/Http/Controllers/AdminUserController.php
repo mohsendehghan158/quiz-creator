@@ -1,18 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Contract\BaseController;
-
-use App\Mail\UserRegistered;
 use App\Models\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
-class UserController extends BaseController
+class AdminUserController extends BaseController
 {
     public function __construct()
     {
@@ -25,22 +20,31 @@ class UserController extends BaseController
         return view('admin.user.index', compact('users'));
     }
 
+
     public function create()
     {
         return view('admin.user.create');
     }
 
-    public function createUser(Request $request)
+
+    public function store(Request $request)
     {
         $inputs = $request->only('name', 'password', 'email');
         $inputs['type'] = 'user';
         $createdUser = $this->repository->create($inputs);
         if ($createdUser) {
-
             $request->session()->flash('success', 'کاربر با موفقیت اضافه گردید');
-            return redirect()->route('users');
+            return redirect()->route('admin-users-index');
         }
     }
+
+
+    public function show($user_id)
+    {
+        $user = $this->repository->find($user_id);
+        return view('admin.user.edit', compact('user'));
+    }
+
 
     public function edit($user_id)
     {
@@ -48,7 +52,7 @@ class UserController extends BaseController
         return view('admin.user.edit', compact('user'));
     }
 
-    public function doEdit($user_id, Request $request)
+    public function update(Request $request, $user_id)
     {
         $user = $this->repository->find($user_id);
         $user->name = $request->input('name');
@@ -63,22 +67,19 @@ class UserController extends BaseController
         }
     }
 
-    public function remove($user_id, Request $request)
+    public function destroy($user_id)
     {
         $removed_user = $this->repository->delete($user_id);
-        $request->session()->flash('success', 'کاربر با موفقیت حذف گردید');
-        return redirect()->route('users');
-
+        return $removed_user;
     }
-    public function promote($user_id,Request $request)
+
+    public function promote($user_id, Request $request)
     {
         $user = $this->repository->find($user_id);
-        $user->type = User::ADMIN_TYPE ;
-        if($user->save()){
-            $request->session()->flash('success','نقش کاربر با موفقیت ارتقا داده شد');
-            return redirect()->route('users');
+        $user->type = User::ADMIN_TYPE;
+        if ($user->save()) {
+            $request->session()->flash('success', 'نقش کاربر با موفقیت ارتقا داده شد');
+            return redirect()->route('admin-users-index');
         }
     }
-
-
 }

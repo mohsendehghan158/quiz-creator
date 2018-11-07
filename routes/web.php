@@ -19,24 +19,42 @@ Route::post('/admin/register', 'Admin\AdminLoginController@doRegister')->name('a
 
 Route::group(['namespace'=>'Admin','middleware' => ['auth','is_admin']],function(){
     Route::get('/admin', 'AdminController@index')->name('admin-index');
+    Route::get('/sanjesh-news', 'AdminController@sanjesh')->name('sanjesh-news');
 });
-Route::group(['namespace'=>'User','middleware' => ['auth','is_admin']],function(){
-    Route::get('/admin/users', 'UserController@index')->name('users');
-    Route::get('/admin/users/create-user', 'UserController@create')->name('create-user');
-    Route::post('/admin/users/create-user', 'UserController@createUser');
-    Route::get('/admin/users/edit/{user_id}', 'UserController@edit')->name('edit-user');
-    Route::post('/admin/users/edit/{user_id}', 'UserController@doEdit');
-    Route::get('/admin/users/remove/{user_id}', 'UserController@remove')->name('remove-user');
-    Route::get('/admin/users/promote/{user_id}', 'UserController@promote')->name('promote-user');
+Route::group(['prefix'=>'admin','middleware' => ['auth','is_admin']],function(){
+    /*
+    |--------------------------------------------------------------------------
+    | define routes for managing users
+    |--------------------------------------------------------------------------
+    */
+    Route::Resource('/users','AdminUserController')->names([
+        'index' => 'admin-users-index',
+        'create'=>'admin-user-create',
+        'store' => 'admin-user-store',
+        'edit' => 'admin-user-edit',
+        'destroy'=> 'admin-user-destroy',
+    ]);
+    Route::get('/users/promote/{user_id}','AdminUserController@promote')->name('admin-user-promote');
+    /*
+    |--------------------------------------------------------------------------
+    | define routes for managing quizzes
+    |--------------------------------------------------------------------------
+    */
+    Route::Resource('/quizzes','AdminQuizController')->names([
+        'index' => 'quizzes',
+        'create'=>'quiz-create',
+        'edit' => 'quiz-edit',
+        'destroy'=> 'quiz-remove',
+    ]);
 });
 
 
 Route::group(['namespace'=>'Quiz','middleware' => ['auth','is_admin']],function (){
     Route::get('/admin/quizzes','QuizController@index')->name('quizzes');
     Route::get('/admin/edit/{quiz_id}','QuizController@edit')->name('edit-quiz');
-    Route::post('/admin/edit-quiz','QuizController@doEdit')->name('do-edit-quiz');
-    Route::get('/admin/remove/{quiz_id}','QuizController@remove')->name('remove-quiz');
-    Route::get('/admin/create-quiz','QuizController@create')->name('create-quiz');
+    Route::post('/admin/edit-quiz','QuizController@doEdit')->name('quiz-edit');
+    Route::get('/admin/remove/{quiz_id}','QuizController@remove')->name('quiz-remove');
+    Route::get('/admin/quiz-create','QuizController@create')->name('quiz-create');
     Route::post('/admin/create-quiz','QuizController@store')->name('store-quiz');
     Route::get('/admin/create-quiz-category','QuizCategoryController@create')->name('create-quiz-category');
     Route::post('/admin/create-quiz-category','QuizCategoryController@store')->name('store-quiz-category');
@@ -56,10 +74,6 @@ Route::group(['namespace'=>'Question','middleware' => ['auth','is_admin']],funct
     Route::post('admin/edit-question','QuestionController@editQuestion')->name('edit-question-final');
 });
 
-
-
-
-
 Route::namespace('Front')->group(function(){
     Route::get('/login','UserController@login')->name('login');
     Route::post('/login','UserController@doLogin')->name('user-doLogin');
@@ -67,6 +81,8 @@ Route::namespace('Front')->group(function(){
     Route::post('/register','UserController@doRegister');
     Route::get('/register/success','UserController@registerSuccess')->name('user-register-success');
     Route::get('/logout','UserController@logout')->name('logout');
+    Route::get('/oauth', 'UserController@redirectToProvider');
+    Route::get('/oauth-success', 'UserController@handleProviderCallback');
 });
 Route::group(['namespace' => 'Front','middleware'=>'auth'],function (){
     Route::get('/quizzes','QuizController@index')->name('front-quizzes');

@@ -31,9 +31,9 @@
                             <th scope="row">{{$user->name}}</th>
                             <td>{{$user->email}}</td>
                             <td>
-                                <a href="{{route('edit-user',['user_id' => $user->id])}}" class="btn btn-primary"> <span><i class="fas fa-edit"></i> ویرایش </span></a>
-                                <a href="{{route('remove-user',['user_id' => $user->id])}}" class="btn btn-danger"> <span><i class="fas fa-trash"></i> حذف</span></a>
-                                <a href="{{route('promote-user',['user_id' => $user->id])}}" class="btn btn-primary"> <span><i class="fas fa-award"></i> ارتقای نقش کاربر </span></a>
+                                <a href="{{route('admin-user-edit',['user_id' => $user->id])}}" class="btn btn-primary"> <span><i class="fas fa-edit"></i> ویرایش </span></a>
+                                <a href="{{route('admin-user-destroy',['user_id' => $user->id])}}" class="btn btn-danger remove-button"> <span><i class="fas fa-trash"></i> حذف</span></a>
+                                <a href="{{route('admin-user-promote',['user_id' => $user->id])}}" class="btn btn-primary"> <span><i class="fas fa-award"></i> ارتقای نقش کاربر </span></a>
                             </td>
                             
                         </tr>

@@ -1,18 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Contract\BaseController;
-
-use App\Mail\UserRegistered;
-use App\Models\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
-class UserController extends BaseController
+class AdminUserController extends BaseController
 {
     public function __construct()
     {
@@ -21,16 +15,19 @@ class UserController extends BaseController
 
     public function index()
     {
+
         $users = $this->repository->all();
-        return view('admin.user.index', compact('users'));
+        return response()->json($users);
     }
+
 
     public function create()
     {
         return view('admin.user.create');
     }
 
-    public function createUser(Request $request)
+
+    public function store(Request $request)
     {
         $inputs = $request->only('name', 'password', 'email');
         $inputs['type'] = 'user';
@@ -42,13 +39,21 @@ class UserController extends BaseController
         }
     }
 
-    public function edit($user_id)
+
+    public function show($user_id)
     {
         $user = $this->repository->find($user_id);
         return view('admin.user.edit', compact('user'));
     }
 
-    public function doEdit($user_id, Request $request)
+
+    public function edit($id)
+    {
+        $user = $this->repository->find($user_id);
+        return view('admin.user.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
     {
         $user = $this->repository->find($user_id);
         $user->name = $request->input('name');
@@ -63,12 +68,11 @@ class UserController extends BaseController
         }
     }
 
-    public function remove($user_id, Request $request)
+    public function destroy($id)
     {
         $removed_user = $this->repository->delete($user_id);
         $request->session()->flash('success', 'کاربر با موفقیت حذف گردید');
         return redirect()->route('users');
-
     }
     public function promote($user_id,Request $request)
     {
@@ -79,6 +83,4 @@ class UserController extends BaseController
             return redirect()->route('users');
         }
     }
-
-
 }
