@@ -9,11 +9,10 @@
         <div class="card-body">
             آزمون مورد نظر خود را برای مدیریت سوالات انتخاب کنید
             <hr>
-            <form method="post" action="{{route('create-question-by-quiz-id')}}">
-                {{csrf_field()}}
+            <form method="get" action="{{route('question-create')}}">
                 <div class="form-group">
                     <label for="quiz-category">انتخاب آزمون</label>
-                    <select class="custom-select" name="quiz-id">
+                    <select class="custom-select" name="quiz_id">
                         @if($quizzes and count($quizzes)>0)
                             @foreach($quizzes as $quiz)
                                 <option value="{{$quiz->quiz_id}}">{{$quiz->quiz_name}}</option>

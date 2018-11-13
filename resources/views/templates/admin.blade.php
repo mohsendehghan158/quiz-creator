@@ -9,13 +9,13 @@
                 </button>
                 <button type="button" class="list-group-item list-group-item-action"><a href="{{route('quizzes')}}" >مشاهده لیست آزمون ها</a></button>
                 <button type="button" class="list-group-item list-group-item-action"><a href="{{route('quiz-create')}}" >ایجاد آزمون جدید</a></button>
-                <button type="button" class="list-group-item list-group-item-action"><a href="{{route('create-quiz-category')}}">مدیریت دسته بندی ها</a> </button>
+                <button type="button" class="list-group-item list-group-item-action"><a href="{{route('quiz-categories')}}">مدیریت دسته بندی ها</a> </button>
             </div>
             <div class="list-group">
                 <button type="button" class="list-group-item list-group-item-action active">
                     سوالات
                 </button>
-                <button type="button" class="list-group-item list-group-item-action"><a href="{{route('create-question')}}">مدیریت سوالات آزمون ها</a> </button>
+                <button type="button" class="list-group-item list-group-item-action"><a href="{{route('quiz-select')}}">مدیریت سوالات آزمون ها</a> </button>
             </div>
             <div class="list-group">
                 <button type="button" class="list-group-item list-group-item-action active">

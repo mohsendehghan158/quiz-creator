@@ -32,6 +32,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth','is_admin']],function(){
         'create'=>'admin-user-create',
         'store' => 'admin-user-store',
         'edit' => 'admin-user-edit',
+        'update' => 'admin-user-update',
         'destroy'=> 'admin-user-destroy',
     ]);
     Route::get('/users/promote/{user_id}','AdminUserController@promote')->name('admin-user-promote');
@@ -43,36 +44,40 @@ Route::group(['prefix'=>'admin','middleware' => ['auth','is_admin']],function(){
     Route::Resource('/quizzes','AdminQuizController')->names([
         'index' => 'quizzes',
         'create'=>'quiz-create',
+        'store' => 'quiz-store',
         'edit' => 'quiz-edit',
-        'destroy'=> 'quiz-remove',
+        'update' => 'quiz-update',
+        'destroy'=> 'quiz-destroy',
     ]);
+    /*
+    |--------------------------------------------------------------------------
+    | define routes for managing quiz categories
+    |--------------------------------------------------------------------------
+    */
+    Route::Resource('/quiz-category','AdminQuizCategoryController')->names([
+        'index' => 'quiz-categories',
+        'create'=>'quiz-category-create',
+        'store' => 'quiz-category-store',
+        'edit' => 'quiz-category-edit',
+        'update' => 'quiz-category-update',
+        'destroy'=> 'quiz-category-destroy',
+    ]);
+    /*
+    |--------------------------------------------------------------------------
+    | define routes for managing questions
+    |--------------------------------------------------------------------------
+    */
+    Route::Resource('/question','AdminQuestionController')->names([
+        'index' => 'quiz-select',
+        'create'=>'question-create',
+        'store' => 'question-store',
+        'edit' => 'question-edit',
+        'update' => 'question-update',
+        'destroy'=> 'question-destroy',
+    ]);
+    Route::get('/question/question-create-per-quiz','AdminQuestionController@createQuestionPerQuiz')->name('question-create-per-quiz');
 });
 
-
-Route::group(['namespace'=>'Quiz','middleware' => ['auth','is_admin']],function (){
-    Route::get('/admin/quizzes','QuizController@index')->name('quizzes');
-    Route::get('/admin/edit/{quiz_id}','QuizController@edit')->name('edit-quiz');
-    Route::post('/admin/edit-quiz','QuizController@doEdit')->name('quiz-edit');
-    Route::get('/admin/remove/{quiz_id}','QuizController@remove')->name('quiz-remove');
-    Route::get('/admin/quiz-create','QuizController@create')->name('quiz-create');
-    Route::post('/admin/create-quiz','QuizController@store')->name('store-quiz');
-    Route::get('/admin/create-quiz-category','QuizCategoryController@create')->name('create-quiz-category');
-    Route::post('/admin/create-quiz-category','QuizCategoryController@store')->name('store-quiz-category');
-    Route::get('/admin/quiz-category/edit/{category_id}','QuizCategoryController@edit')->name('edit-quiz-category');
-    Route::post('/admin/quiz-category/edit','QuizCategoryController@doEdit')->name('do-edit-quiz-category');
-    Route::get('/admin/quiz-category/remove/{category_id}','QuizCategoryController@remove')->name('remove-quiz-category');
-});
-
-Route::group(['namespace'=>'Question','middleware' => ['auth','is_admin']],function (){
-    Route::get('/admin/questions','QuestionController@index')->name('questions');
-    Route::get('/admin/create-question','QuestionController@create')->name('create-question');
-    Route::post('/admin/create-question','QuestionController@createQuestionById')->name('create-question-by-quiz-id');
-    Route::get('/admin/create-question/{quiz_id}','QuestionController@createQuestionPerQuiz')->name('create-question-per-quiz');
-    Route::post('/admin/save-question','QuestionController@save')->name('save-question');
-    Route::get('admin/delete-question/{question_id}','QuestionController@delete')->name('delete-question');
-    Route::get('admin/edit-question/{question_id?}','QuestionController@edit')->name('edit-question');
-    Route::post('admin/edit-question','QuestionController@editQuestion')->name('edit-question-final');
-});
 
 Route::namespace('Front')->group(function(){
     Route::get('/login','UserController@login')->name('login');

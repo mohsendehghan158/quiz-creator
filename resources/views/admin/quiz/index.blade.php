@@ -40,8 +40,8 @@
                             <td>{{$quiz->quiz_time}}</td>
                             <td>{{$quiz->quiz_status}}</td>
                             <td>
-                                <a href="{{route('edit-quiz',['quiz_id'=>$quiz->quiz_id])}}" class="btn btn-primary"> <span><i class="fas fa-edit"></i> ویرایش </span></a>
-                                <a href="{{route('quiz-remove',['quiz_id'=>$quiz->quiz_id])}}" class="btn btn-danger"> <span><i class="fas fa-trash"></i> حذف</span></a>
+                                <a href="{{route('quiz-edit',['quiz_id'=>$quiz->quiz_id])}}" class="btn btn-primary"> <span><i class="fas fa-edit"></i> ویرایش </span></a>
+                                <a href="{{route('quiz-destroy',['quiz_id'=>$quiz->quiz_id])}}" class="btn btn-danger remove-button"> <span><i class="fas fa-trash"></i> حذف</span></a>
                             </td>
                         </tr>
                     @endforeach

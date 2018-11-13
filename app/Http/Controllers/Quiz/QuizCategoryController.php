@@ -34,14 +34,14 @@ class QuizCategoryController extends BaseController
         }
         if($newQuizCategory){
             $request->session()->flash('success');
-            return redirect()->Route('create-quiz-category');
+            return redirect()->Route('quiz-categories');
         }
     }
 
     public function edit($category_id)
     {
         $quiz_category = $this->repository->find($category_id);
-        return view('admin.quiz.edit-quiz-category',compact('quiz_category'));
+        return view('admin.quiz.quiz-category-edit',compact('quiz_category'));
     }
 
     public function doEdit(Request $request)
@@ -50,7 +50,7 @@ class QuizCategoryController extends BaseController
         $quiz_category->quiz_category_name = $request->input('category_name');
         if($quiz_category->save()){
             $request->session()->flash('success');
-            return redirect()->route('edit-quiz-category',['category_id' => $quiz_category->quiz_category_id]);
+            return redirect()->route('quiz-category-edit',['category_id' => $quiz_category->quiz_category_id]);
         }
 
     }
@@ -59,7 +59,7 @@ class QuizCategoryController extends BaseController
     {
         $removed_category = $this->repository->delete($category_id);
         $request->session()->flash('deleted');
-        return redirect()->route('create-quiz-category');
+        return redirect()->route('quiz-categories');
     }
 
 

@@ -20,7 +20,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="post">
+            <form method="post" action="{{route('quiz-store')}}">
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="quiz-title">عنوان آزمون</label>

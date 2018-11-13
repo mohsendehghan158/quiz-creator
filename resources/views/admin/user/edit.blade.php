@@ -25,7 +25,8 @@
                     </ul>
                 </div>
             @endif
-            <form method="post">
+            <form method="post" action="{{route('admin-user-update',['user_id'=> $user->id])}}">
+                @method('put')
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="name">نام و نام خانوادگی</label>

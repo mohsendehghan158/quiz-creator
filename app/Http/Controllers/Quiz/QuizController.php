@@ -69,7 +69,7 @@ class QuizController extends BaseController
         $quiz->quiz_status = $request->input('quiz-status');
         if($quiz->save()){
             $request->session()->flash('success');
-            return redirect()->route('edit-quiz',['quiz_id' => $quiz->quiz_id]);
+            return redirect()->route('quiz-update',['quiz_id' => $quiz->quiz_id]);
         }
     }
     public function remove($quiz_id,Request $request)

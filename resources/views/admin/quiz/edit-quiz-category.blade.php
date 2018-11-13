@@ -13,9 +13,9 @@
                     دسته بندی آزمون با موفقیت ویرایش گردید
                 </div>
             @endif
-            <form method="post" style="margin-top: 20px" action="{{route('quiz-edit-category')}}">
+            <form method="post" style="margin-top: 20px" action="{{route('quiz-category-update',['quiz_category_id'=>$quiz_category->quiz_category_id])}}">
+                @method('put')
                 {{csrf_field()}}
-                <input type="hidden" name="category_id" value="{{$quiz_category->quiz_category_id}}">
                 <div class="form-group">
                     <label for="category_name">نام دسته بندی</label>
                     <input type="text" name="category_name" class="form-control" id="category_name"

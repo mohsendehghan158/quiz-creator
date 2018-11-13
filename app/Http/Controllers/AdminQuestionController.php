@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Question;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Contract\BaseController;
 use App\Repositories\Option\OptionRepository;
 use App\Repositories\Question\QuestionRepository;
 use App\Repositories\Quiz\QuizRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Mockery\Exception;
 
-class QuestionController extends BaseController
+class AdminQuestionController extends BaseController
 {
     private $quizzes;
     private $options;
@@ -21,28 +19,21 @@ class QuestionController extends BaseController
         $this->quizzes = new QuizRepository();
         $this->options = new OptionRepository();
     }
-
     public function index()
     {
         $quizzes = $this->quizzes->all();
         return view('admin.question.create', compact('quizzes'));
     }
 
-    public function create($quiz_id)
+    public function create(Request $request)
     {
-        $quiz_id = $this->quizzes->find($quiz_id)->quiz_id;
+        $quiz_id = $this->quizzes->find($request->input('quiz_id'))->quiz_id;
         $quiz_title = $this->quizzes->find($quiz_id)->quiz_name;
         $questions = $this->quizzes->find($quiz_id)->questions;
         return view('admin.question.create-per-quiz', compact('quiz_title', 'questions', 'quiz_id'));
     }
 
-    public function createQuestionById(Request $request)
-    {
-        $quiz_id = $request->input('quiz-id');
-        return redirect()->Route('create-question-per-quiz', ['quiz_id' => $quiz_id]);
-    }
-
-    public function save(Request $request)
+    public function store(Request $request)
     {
         $true_option = $request->input('correct_option');
         $quiz_id = $request->input('quiz_id');
@@ -72,15 +63,7 @@ class QuestionController extends BaseController
             'option_is_true' => 4 == $true_option ? true : false
         ]);
         $request->session()->flash('success_added_question');
-        return redirect()->route('create-question-per-quiz',['quiz_id'=>$quiz_id]);
-
-    }
-
-    public function delete($question_id, Request $request)
-    {
-        $this->repository->delete($question_id);
-        $request->session()->flash('success', 'سوال با موفقیت حذف گردید');
-        return redirect()->back();
+        return redirect()->route('question-create',['quiz_id'=>$quiz_id]);
     }
 
     public function edit($question_id)
@@ -90,7 +73,8 @@ class QuestionController extends BaseController
         return view('admin.question.edit', compact('question', 'options'));
     }
 
-    public function editQuestion(Request $request)
+
+    public function update(Request $request, $id)
     {
         $question_id = $request->input('question_id');
         $question = $this->repository->find($question_id);
@@ -116,4 +100,14 @@ class QuestionController extends BaseController
         $request->session()->flash('success','سوال با موفقیت ویرایش شد');
         return redirect()->back();
     }
+
+
+    public function destroy($question_id)
+    {
+        $deleted_question = $this->repository->delete($question_id);
+        if($deleted_question){
+            return true;
+        }
+    }
+
 }

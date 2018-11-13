@@ -18,7 +18,7 @@
                     دسته بندی آزمون با موفقیت حذف گردید
                 </div>
             @endif
-            <form method="post" style="margin-top: 20px">
+            <form method="post" action="{{route('quiz-category-store')}}" style="margin-top: 20px">
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="category_name">نام دسته بندی جدید</label>
@@ -50,8 +50,8 @@
                         <tr>
                             <th scope="row">{{$quizCategory->quiz_category_name}}</th>
                             <td>
-                                <a href="{{route('edit-quiz-category',['category_id'=>$quizCategory->quiz_category_id])}}" class="btn btn-primary"> <span><i class="fas fa-edit"></i> ویرایش </span></a>
-                                <a href="{{route('remove-quiz-category',['category_id'=>$quizCategory->quiz_category_id])}}" class="btn btn-danger"> <span><i class="fas fa-trash"></i> حذف</span></a>
+                                <a href="{{route('quiz-category-edit',['category_id'=>$quizCategory->quiz_category_id])}}" class="btn btn-primary"> <span><i class="fas fa-edit"></i> ویرایش </span></a>
+                                <a href="{{route('quiz-category-destroy',['category_id'=>$quizCategory->quiz_category_id])}}" class="btn btn-danger remove-button"> <span><i class="fas fa-trash"></i> حذف</span></a>
                             </td>
 
                         </tr>

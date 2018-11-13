@@ -22,7 +22,7 @@
                 @endif
             <div class="new-question">
                 <div class="question-container border rounded p-3 m-2">
-                    <form method="post" action="{{route('save-question')}}">
+                    <form method="post" action="{{route('question-store')}}">
                         {{csrf_field()}}
                         <input type="hidden" name="quiz_id" value="{{$quiz_id}}">
                         <div class="form-group">
@@ -112,9 +112,9 @@
                         <tr>
                             <th scope="row">{{$question->question_content}}</th>
                             <td>
-                                <a href="{{route('edit-question',['question_id' => $question->question_id])}}" class="btn btn-primary"> <span><i class="fas fa-edit"></i> ویرایش </span></a>
-                                <a href="{{route('delete-question',['question_id' => $question->question_id])}}"
-                                   class="btn btn-danger"> <span><i class="fas fa-trash"></i> حذف</span></a>
+                                <a href="{{route('question-edit',['question_id' => $question->question_id])}}" class="btn btn-primary"> <span><i class="fas fa-edit"></i> ویرایش </span></a>
+                                <a href="{{route('question-destroy',['question_id' => $question->question_id])}}"
+                                   class="btn btn-danger remove-button"> <span><i class="fas fa-trash"></i> حذف</span></a>
                             </td>
 
                         </tr>

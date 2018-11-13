@@ -25,9 +25,9 @@
                     آزمون با موفقیت ویرایش گردید
                 </div>
             @endif
-            <form method="post" action="{{route('quiz-edit')}}">
+            <form method="post" action="{{route('quiz-update',['quiz_id'=>$quiz->quiz_id])}}">
+                @method('put')
                 {{csrf_field()}}
-                <input type="hidden" name="quiz_id" value="{{$quiz->quiz_id}}">
                 <div class="form-group">
                     <label for="quiz-title">عنوان آزمون</label>
                     <input name="quiz-title" type="text" class="form-control" id="quiz-title" value="{{$quiz->quiz_name}}">
