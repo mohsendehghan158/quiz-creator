@@ -1,5 +1,5 @@
 <?php
-
+use \Illuminate\Support\Facades\Redis;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -97,3 +97,11 @@ Route::group(['namespace' => 'Front','middleware'=>'auth'],function (){
     Route::get('/edit-user','UserController@edit')->name('edit-user');
     Route::post('/edit-user','UserController@doEdit');
 });
+
+
+//test routes
+Route::get('redis',function(){
+    $visits = Redis::incr('visits');
+    return $visits;
+});
+Route::get('chat','ChatController@index');
